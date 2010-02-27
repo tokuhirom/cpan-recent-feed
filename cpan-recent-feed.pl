@@ -59,10 +59,8 @@ sub main {
 sub make_content {
     my ($entry, $diff) = @_;
     <<"...";
-<div style="margin-left: 10px; background-color: #5F9EA0; border: black">
-<pre>$diff</pre>
-</div>
 <img src="$entry->{gravatar}" /><br />
+<pre>$diff</pre>
 <a href="http://search.cpan.org/dist/$entry->{dist}">search.cpan.org</a><br />
 <a href="$entry->{url}">Download</a>
 ...
