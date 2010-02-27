@@ -36,7 +36,7 @@ sub main {
        $entries = [ map { parse_entry( $_->{body}, $_->{date} ) } @$entries ];
     my $feed = XML::Feed->new('RSS', version => 2.0);
     $feed->title('Yet Another CPAN Recent Changes');
-    $feed->link('http://64p.org/');
+    $feed->link('http://cpanrecent.64p.org/');
     for my $entry ( @$entries ) {
         dbg("-- ", $entry->{dist}, ' ', $entry->{version});
         my $diff = extract_diff($entry) || '';
@@ -59,9 +59,12 @@ sub main {
 sub make_content {
     my ($entry, $diff) = @_;
     <<"...";
-<img src="$entry->{gravatar}" /><br />
-Diff:<br />
+<div style="margin-left: 10px; background-color: #5F9EA0; border: black">
 <pre>$diff</pre>
+</div>
+<img src="$entry->{gravatar}" /><br />
+<a href="http://search.cpan.org/dist/$entry->{dist}">search.cpan.org</a><br />
+<a href="$entry->{url}">Download</a>
 ...
 }
 
