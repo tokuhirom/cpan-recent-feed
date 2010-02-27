@@ -38,9 +38,8 @@ sub main {
     $feed->title('Yet Another CPAN Recent Changes');
     $feed->link('http://64p.org/');
     for my $entry ( @$entries ) {
-        print "-- ", $entry->{dist}, ' ', $entry->{version}, $/;
+        dbg("-- ", $entry->{dist}, ' ', $entry->{version});
         my $diff = extract_diff($entry) || '';
-        print $diff;
         $feed->add_entry(do {
             my $e = XML::Feed::Entry->new('RSS');
                $e->title("$entry->{dist} $entry->{version}");
@@ -98,7 +97,7 @@ sub extract_diff {
     }
 
     unless ($pagecontent =~ m{<a href="([^"]+)">(?:Changes|ChangeLog)</a><br>}) {
-        Carp::carp("cannot get url for Changes file");
+        Carp::carp("cannot get url for Changes file: $entry->{url}");
         return '';
     }
 
@@ -165,4 +164,16 @@ __END__
 =head1 SYNOPSIS
 
     % cpanrecent-feed.pl
+
+=head1 DESCRIPTION
+
+=head1 peculiar modules
+
+=over 4
+
+=item http://search.cpan.org/~chorny/MLDBM-2.03/
+
+This module wrote Changes in pod.
+
+=back
 
