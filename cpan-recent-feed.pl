@@ -43,7 +43,7 @@ sub main {
         $feed->add_entry(do {
             my $e = XML::Feed::Entry->new('RSS');
                $e->title("$entry->{dist} $entry->{version}");
-               $e->link($entry->{url});
+               $e->link("http://search.cpan.org/dist/$entry->{dist}");
                $e->author($entry->{author});
                $e->issued(do {
                     DateTime->from_epoch(epoch => $entry->{'time'}->epoch)
